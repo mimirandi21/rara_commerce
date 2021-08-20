@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { commerce } from "./lib/commerce";
-import { Products, NavBar } from "./components";
+import { Products, NavBar, Cart } from "./components";
 //^^this is a cleaner way to import the lines below
 //import Products from "./components/products/Products";
 //import NavBar from './components/NavBar/NavBar'
@@ -35,7 +35,8 @@ const App = () => {
   return (
     <div>
       <NavBar totalItems={cart.total_items} />
-      <Products products={products} onAddToCart={handleAddToCart} />
+      {/* <Products products={products} onAddToCart={handleAddToCart} /> */}
+      <Cart cart={cart}/>
     </div>
   );
 };

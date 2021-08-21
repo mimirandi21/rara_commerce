@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { commerce } from "./lib/commerce";
 import { Products, NavBar, Cart } from "./components";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //^^this is a cleaner way to import the lines below
 //import Products from "./components/products/Products";
 //import NavBar from './components/NavBar/NavBar'
@@ -22,9 +23,9 @@ const App = () => {
   };
 
   const handleAddToCart = async (productId, quantity) => {
-    const item = await commerce.cart.add(productId, quantity)
+    const item = await commerce.cart.add(productId, quantity);
     setCart(item.cart);
-  }
+  };
   useEffect(() => {
     fetchProducts();
     fetchCart();
@@ -33,11 +34,19 @@ const App = () => {
   console.log(products);
   console.log(cart);
   return (
-    <div>
-      <NavBar totalItems={cart.total_items} />
-      {/* <Products products={products} onAddToCart={handleAddToCart} /> */}
-      <Cart cart={cart}/>
-    </div>
+    <Router>
+      <div>
+        <NavBar totalItems={cart.total_items} />
+        <Switch>
+          <Route exact path="/">
+            <Products products={products} onAddToCart={handleAddToCart} />
+          </Route>
+          <Route exact path="/cart">
+            <Cart cart={cart} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
